@@ -1,31 +1,24 @@
-// Reverses a string.
-function reverse(string) {
-  return Array.from(string).reverse().join("");
-}
+module.exports = Phrase;
 
 // Adds `reverse` to all strings.
 String.prototype.reverse = function() {
   return Array.from(this).reverse().join("");
 }
 
-// Returns true for a palindroem, false otherwise
-function palindrome(string) {
-  let processedContent = string.toLowerCase();
-  return processedContent === reverse(processedContent);
-}
-
 // Defines a Phrase object.
 function Phrase(content) {
   this.content = content;
 
-  // Returns the lower-case version of the content.
-  this.processor = function(string) {
-    return string.toLowerCase();
-  }
-
   // Returns content processed for palindrome testing.
   this.processedContent = function processedContent() {
-    return this.processor(this.content);
+    return this.letters().toLowerCase();
+  }
+
+  // Returns the letters in the content.
+  // For example:
+  //  new Phrase("Hello, world!").letters() === "Helloworld"
+  this.letters = function letters() {
+    return (this.content.match(/[a-z]/gi) || []).join("");
   }
 
   // Returns true for a palindroem, false otherwise
